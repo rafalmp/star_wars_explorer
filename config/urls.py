@@ -1,21 +1,19 @@
-from django.conf import settings
-from django.conf.urls.static import static
-from django.contrib import admin
-from django.urls import include, path
-from django.views import defaults as default_views
-from django.views.generic import TemplateView
+from typing import List, Union
 
-urlpatterns = [
-    path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
+from django.conf import settings
+from django.contrib import admin
+from django.urls import URLPattern, URLResolver, include, path
+from django.views import defaults as default_views
+
+urlpatterns: List[Union[URLPattern, URLResolver]] = [
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("star_wars_explorer.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
-] + static(
-    settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
-)  # type: ignore[operator]
+    path("", include("star_wars_explorer.etl.urls", namespace="etl")),
+]
 
 
 if settings.DEBUG:
@@ -42,6 +40,4 @@ if settings.DEBUG:
     if "debug_toolbar" in settings.INSTALLED_APPS:
         import debug_toolbar
 
-        urlpatterns = [
-            path("__debug__/", include(debug_toolbar.urls))
-        ] + urlpatterns  # type: ignore[assignment, operator]
+        urlpatterns = [path("__debug__/", include(debug_toolbar.urls)), *urlpatterns]

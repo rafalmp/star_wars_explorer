@@ -1,1 +1,18 @@
 {% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <div class="d-flex flex-row align-items-center mt-5">
+    <div><h1>{% translate "Collections" %}</h1></div>
+    <div class="ps-2"><a href="#" class="btn btn-primary">{% translate "Fetch" %}</a></div>
+  </div>
+  <table class="table table-striped">
+    <tbody>
+    {% for row in rows %}
+    {% empty %}
+      <tr>
+        <td class="text-center">{% translate "No collections available, click Fetch to download a new one." %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}
