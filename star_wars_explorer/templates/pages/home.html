@@ -3,7 +3,7 @@
 {% block content %}
   <div class="d-flex flex-row align-items-center mt-5">
     <div><h1>{% translate "Collections" %}</h1></div>
-    <div class="ps-2"><a href="#" class="btn btn-primary">{% translate "Fetch" %}</a></div>
+    <div class="ps-2"><a href="{% url 'etl:fetch' %}" class="btn btn-primary">{% translate "Fetch" %}</a></div>
   </div>
   <table class="table table-striped">
     <tbody>
