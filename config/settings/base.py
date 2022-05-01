@@ -293,3 +293,4 @@ SWAPI_CHARACTER_HEADERS = [
     "edited",
 ]
 SWAPI_PLANETS_HEADERS = ["name", "url"]
+LINES_PER_LOAD = 10
