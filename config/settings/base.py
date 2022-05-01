@@ -2,6 +2,7 @@
 Base settings to build other settings files upon.
 """
 
+
 from pathlib import Path
 
 import environ
@@ -273,3 +274,22 @@ SOCIALACCOUNT_FORMS = {"signup": "star_wars_explorer.users.forms.UserSocialSignu
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+SWAPI_BASE_URL = "https://swapi.dev/api/"
+SWAPI_CHARACTERS_URL = f"{SWAPI_BASE_URL}people/"
+SWAPI_PLANETS_URL = f"{SWAPI_BASE_URL}planets/"
+# Headers of columns to be extracted. Define these explicitly to skip data we don't need
+# and preserve order of the columns (which is not guaranteed when importing from json or
+# from python dict).
+SWAPI_CHARACTER_HEADERS = [
+    "name",
+    "height",
+    "mass",
+    "hair_color",
+    "skin_color",
+    "eye_color",
+    "birth_year",
+    "gender",
+    "homeworld",
+    "edited",
+]
+SWAPI_PLANETS_HEADERS = ["name", "url"]

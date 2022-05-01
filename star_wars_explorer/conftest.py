@@ -1,4 +1,5 @@
 import pytest
+import responses
 
 from star_wars_explorer.users.models import User
 from star_wars_explorer.users.tests.factories import UserFactory
@@ -12,3 +13,9 @@ def media_storage(settings, tmpdir):
 @pytest.fixture
 def user() -> User:
     return UserFactory()
+
+
+@pytest.fixture
+def mocked_responses():
+    with responses.RequestsMock() as rsps:
+        yield rsps

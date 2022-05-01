@@ -7,6 +7,12 @@ A simple app to explore Star Wars API data
 
 License: MIT
 
+## Ideas for improvements
+
+- handle API and network errors
+- refactor transform_and_load to conform to SRP and improve testability
+- write unit / integration tests omitted due to time constraints
+
 ## Settings
 
 Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
