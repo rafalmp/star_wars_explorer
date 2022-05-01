@@ -7,7 +7,10 @@
   </div>
   <table class="table table-striped">
     <tbody>
-    {% for row in rows %}
+    {% for collection in object_list %}
+      <tr>
+        <td><a href="{% url 'etl:details' collection.id %}">{{ collection.created }}</a></td>
+      </tr>
     {% empty %}
       <tr>
         <td class="text-center">{% translate "No collections available, click Fetch to download a new one." %}</td>

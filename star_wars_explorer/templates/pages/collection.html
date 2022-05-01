@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <h3 class="mt-3">{{ object.csv_file.name }}</h3>
+  <table class="table table-striped">
+    <thead>
+    {% for cols in csv_data|slice:":1" %}
+      <tr>
+      {% for col in cols %}
+        <th>{{ col }}</th>
+      {% endfor %}
+      </tr>
+    {% endfor %}
+    </thead>
+    <tbody>
+    {% for row in csv_data|slice:"1:" %}
+      <tr>
+      {% for val in row %}
+        <td>{{ val }}</td>
+      {% endfor %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}

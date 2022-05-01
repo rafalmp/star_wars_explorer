@@ -1,8 +1,10 @@
 from django.urls import path
-from django.views.generic import TemplateView
+
+from star_wars_explorer.etl.views import CollectionDetailView, CollectionListView
 
 app_name = "etl"
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="pages/home.html"), name="home")
+    path("", CollectionListView.as_view(), name="home"),
+    path("<int:pk>/", CollectionDetailView.as_view(), name="details"),
 ]
