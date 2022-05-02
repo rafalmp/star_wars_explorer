@@ -58,3 +58,46 @@ The following details how to deploy this application.
 ### Docker
 
 See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
+
+
+## Getting Up and Running locally
+
+### Local Development Environment
+
+Make sure you have the following installed on your host:
+
+- Python 3.9
+- PostgreSQL
+- Development header files for PostgreSQL (`libpq-dev` package in Ubuntu)
+- Development header files for Python 3.9 (`python3.9-dev` package in Ubuntu)
+- Development packages for your operating system (`build-essential` package in Ubuntu)
+
+Clone the repository and cd to the project directory.
+
+Create a virtualenv:
+
+    $ python 3.9 -m venv venv
+
+Activate the virtualenv  you have just created:
+
+    $ source venv/bin/activate
+
+Install development requirements:
+
+    $ pip install -r requirements/local.txt
+    $ pre-commit install
+
+Create a new PostgreSQL role and database - refer to the PostgreSQL documentation for more information.
+To run tests the role must have the `createdb` privilege.
+
+Set the environment variable for your database:
+
+    $ export DATABASE_URL=postgres://<username>:<password>@127.0.0.1:5432/<dbname>
+
+Apply migrations:
+
+    $ python manage.py migrate
+
+Start the development server:
+
+    $ python manage.py ruunserver 0.0.0.0:8000
