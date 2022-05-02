@@ -1,3 +1,4 @@
+import csv
 from typing import Optional
 
 import petl.io
@@ -14,11 +15,10 @@ def parse_page(page: dict) -> tuple[dict, Optional[str]]:
 
 
 def create_data_csv(url: str, header: list, file_path: str) -> None:
-    results, next_ = parse_page(fetch_page(url))
-    # Define header explicitly as otherwise the column order is not guaranteed when loading data from dicts.
-    table = petl.io.fromdicts(results, header=header)
-    petl.io.tocsv(table, source=file_path)
+    with open(file_path, "w", newline="") as f:
+        csv.writer(f).writerow(header)
 
+    next_: Optional[str] = url
     while next_:
         results, next_ = parse_page(fetch_page(next_))
         table = petl.io.fromdicts(results, header=header)
