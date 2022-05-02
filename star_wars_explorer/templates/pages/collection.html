@@ -2,15 +2,38 @@
 {% load i18n %}
 {% block content %}
   <h3 class="mt-3">{{ object.csv_file.name }}</h3>
+  {% with csv_data|first as column_names %}
+  <form class="form" method="post" action="{% url 'etl:count' object.pk %}">
+    {% csrf_token %}
+    <div class="row py-2">
+      <div class="col-auto">
+        <label>
+          <select class="form-select" name="col1" required>
+            <option value="" selected>{% translate "Column 1" %}</option>
+            {% for col in column_names %}<option value="{{ col }}">{{ col }}</option>{% endfor %}
+          </select>
+        </label>
+      </div>
+      <div class="col-auto">
+        <label>
+          <select class="form-select" name="col2" required>
+            <option value="" selected>{% translate "Column 2" %}</option>
+            {% for col in column_names %}<option value="{{ col }}">{{ col }}</option>{% endfor %}
+          </select>
+        </label>
+      </div>
+      <div class="col-auto">
+        <input type="submit" class="btn btn-primary" value="{% translate 'Count values' %}"/>
+      </div>
+    </div>
+  </form>
   <table class="table table-striped">
     <thead>
-    {% for cols in csv_data|slice:":1" %}
       <tr>
-      {% for col in cols %}
+      {% for col in column_names %}
         <th>{{ col }}</th>
       {% endfor %}
       </tr>
-    {% endfor %}
     </thead>
     <tbody>
     {% for row in csv_data|slice:"1:" %}
@@ -23,4 +46,5 @@
     </tbody>
   </table>
   <a href="?load={{ load_more }}" class="btn btn-link">{% translate "Load More" %}</a>
+  {% endwith %}
 {% endblock content %}
